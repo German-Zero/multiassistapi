@@ -1,4 +1,4 @@
 export class GetDtoUser {
-  username: string;
+  name: string;
   role: string;
 }

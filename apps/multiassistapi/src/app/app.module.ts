@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfig } from './config/database.config';
-import { UsersModule } from './users/infrastructure/users.module';
 import { TeacherModule } from './teachers/teachers.module';
 import { AcademicLevelModule } from './academic-level/academic-level.module';
 import { AddressModule } from './addresses/addresses.module';
@@ -21,6 +20,8 @@ import { SchoolModule } from './schools/schools.module';
 import { StudentModule } from './students/students.module';
 import { TeacherAssignmentModule } from './teacher-assignments/teacher-assignments.module';
 import { SubjectModule } from './subjects/subjects.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SubjectModule } from './subjects/subjects.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(databaseConfig),
+    AuthModule,
     UsersModule,
     TeacherModule,
     AcademicLevelModule,

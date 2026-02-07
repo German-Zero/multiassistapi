@@ -1,8 +1,12 @@
 import { Response } from "express";
-import { Body, Controller, InternalServerErrorException, Param, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, InternalServerErrorException, Param, Post, Res, UseGuards } from "@nestjs/common";
 import { LoginUseCase } from "../application/login.use-case";
 import { ChangePasswordDto } from "../dto/change-password.dto";
 import { ChangePasswordUseCase } from "../application/change-password.use-case";
+import { JwtAuthGuard } from "../infrastructure/jwt.guard";
+import { CurrentUser } from "../../common/decorator/current-user.decorator";
+import { AuthPayLoad } from "../domain/auth.payload";
+
 
 @Controller('auth')
 export class AuthController {
@@ -36,6 +40,7 @@ export class AuthController {
     return { ok: true };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/change-password/:id')
   changePassword(
     @Param('id') id: number,
@@ -44,6 +49,7 @@ export class AuthController {
     return this.changePass.execute(id, dto)
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/logout')
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('access_token', {
@@ -54,5 +60,15 @@ export class AuthController {
     });
 
     return { ok: true };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  me(@CurrentUser() user: AuthPayLoad) {
+    return {
+      id: user.sub,
+      email: user.email,
+      role: user.roles,
+    }
   }
 }

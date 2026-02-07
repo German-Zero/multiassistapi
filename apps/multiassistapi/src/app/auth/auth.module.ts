@@ -16,7 +16,7 @@ import { BcryptPasswordHasher } from "../common/security/bcrypt-password-hasher.
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '1d' },
     }),
     UsersModule,
   ],

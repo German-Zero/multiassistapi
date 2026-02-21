@@ -11,7 +11,24 @@ export class SchoolRepositoryImpl implements SchoolRepository {
     private readonly repo: Repository<School>,
   ) {}
 
+  remove(school: School) {
+    return this.repo.remove(school);
+  }
+
+  create(school: School) {
+    return this.repo.save(school);
+  }
+
   findAll(): Promise<School[]> {
     return this.repo.find();
   }
+
+  findById(id: number): Promise<School | null> {
+    return this.repo.findOne({ where: { id }, relations: ['address'] });
+  }
+
+  update(school: School): Promise<School> {
+    return this.repo.save(school)
+  }
+
 }

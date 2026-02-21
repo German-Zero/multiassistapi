@@ -13,5 +13,5 @@ export class Address extends BaseEntity {
   calle: string;
 
   @Column()
-  postcode: string;
+  postCode: string;
 }

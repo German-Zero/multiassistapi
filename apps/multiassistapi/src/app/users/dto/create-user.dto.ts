@@ -5,8 +5,8 @@ export class CreateUserDto {
   name: string;
   middlename?: string;
   lastname: string;
-  displayName: string;
   password: string;
   dni: string;
   userType: RoleEnum;
+  schoolId: number;
 }

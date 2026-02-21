@@ -1,6 +1,6 @@
 import { RoleEnum } from "../../common/enums";
 import { Role } from "../infrastructure/roles.entity";
 
-export interface RoleRepository {
-  findByName(name: RoleEnum): Promise<Role | null>;
+export abstract class RoleRepository {
+  abstract findByName(name: RoleEnum): Promise<Role | null>;
 }

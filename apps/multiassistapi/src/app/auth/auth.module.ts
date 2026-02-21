@@ -32,5 +32,6 @@ import { BcryptPasswordHasher } from "../common/security/bcrypt-password-hasher.
       useClass: BcryptPasswordHasher,
     }
   ],
+  exports: [PasswordHasher]
 })
 export class AuthModule {}

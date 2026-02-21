@@ -1,8 +1,6 @@
 import { RoleEnum } from "./enums";
 
-export const SYSTEM_ROLES = [RoleEnum.ADMIN, RoleEnum.USER];
-
-export const USER_SUB_ROLES = [
+export const USER_SUB_ROLES: RoleEnum[] = [
   RoleEnum.ALUMNO,
   RoleEnum.PROFESOR,
   RoleEnum.PRECEPTOR,

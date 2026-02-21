@@ -4,10 +4,10 @@ import { SchoolRepository } from "../domain/school.repository";
 @Injectable()
 export class GetSchoolUseCase {
   constructor(
-    private readonly schoolRepository: SchoolRepository,
+    private readonly repo: SchoolRepository,
   ) {}
 
   execute() {
-    return this.schoolRepository.findAll();
+    return this.repo.findAll();
   }
 }

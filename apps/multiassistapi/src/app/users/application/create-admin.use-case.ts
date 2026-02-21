@@ -1,7 +1,5 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { USER_REPOSITORY } from "../domain/user.token";
+import { Injectable } from "@nestjs/common";
 import { UserRepository } from "../domain/user.repository";
-import { ROLE_REPOSITORY } from "../../roles/domain/role.token";
 import { RoleRepository } from "../../roles/domain/role.repository";
 import { CreateAdminDto } from "../dto/create-admin.dto";
 import { RoleEnum } from "../../common/enums";
@@ -11,12 +9,8 @@ import { PasswordHasher } from "../../common/security/password-hasher";
 @Injectable()
 export class CreateAdminUseCase {
   constructor(
-    @Inject(USER_REPOSITORY)
     private readonly userRepo: UserRepository,
-
-    @Inject(ROLE_REPOSITORY)
     private readonly roleRepo: RoleRepository,
-
     private readonly passwordHasher: PasswordHasher,
   ) {}
 

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { BaseEntity } from "../../common/base.entity";
 import { Address } from "../../addresses/infrastructure/addresses.entity";
 
@@ -7,6 +7,11 @@ export class School extends BaseEntity{
   @Column()
   name: string;
 
-  @ManyToOne(() => Address, { cascade: true })
+  @OneToOne(() => Address, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn()
   address: Address;
 }

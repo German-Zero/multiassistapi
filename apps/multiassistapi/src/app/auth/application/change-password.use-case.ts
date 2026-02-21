@@ -1,5 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { USER_REPOSITORY } from "../../users/domain/user.token";
+import { Injectable } from "@nestjs/common";
 import { UserRepository } from "../../users/domain/user.repository";
 import { ChangePasswordDto } from "../dto/change-password.dto";
 import { PasswordHasher } from "../../common/security/password-hasher";
@@ -7,7 +6,6 @@ import { PasswordHasher } from "../../common/security/password-hasher";
 @Injectable()
 export class ChangePasswordUseCase {
   constructor(
-    @Inject(USER_REPOSITORY)
     private readonly userRepo: UserRepository,
 
     private readonly passwordHasher: PasswordHasher,

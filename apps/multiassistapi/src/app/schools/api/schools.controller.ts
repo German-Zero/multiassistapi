@@ -10,8 +10,7 @@ import { DeleteSchoolUseCase } from "../application/delete-schools.use-case";
 import { CreateSchoolDto } from "../dto/create-school.dto";
 import { UpdateSchoolDto } from "../dto/update-school.dto";
 
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(RoleEnum.ADMIN)
+
 @Controller('schools')
 export class SchoolsController {
   constructor(
@@ -21,6 +20,8 @@ export class SchoolsController {
     private readonly deleteSchoolUseCase: DeleteSchoolUseCase,
   ) {}
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(RoleEnum.ADMIN)
   @Post()
   create(@Body() dto: CreateSchoolDto) {
     return this.createSchoolUseCase.execute(dto);

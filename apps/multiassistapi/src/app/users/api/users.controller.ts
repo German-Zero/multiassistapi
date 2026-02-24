@@ -24,15 +24,11 @@ export class UsersController {
     private readonly deleteUser: DeleteUserUseCase,
   ) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(RoleEnum.ADMIN)
   @Get()
   findAll() {
     return this.getUser.execute();
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(RoleEnum.ADMIN)
   @Get('/by-role/:role')
   findByRole(@Param('role') role: string) {
     return this.getUserByRole.execute(role);

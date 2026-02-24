@@ -35,6 +35,8 @@ export class UpdateUserUseCase {
       user.school = { id: dto.schoolId } as School;
     }
 
+    user.displayName = `${user.name} ${user.middleName ? user.middleName + ' ' : ''}${user.lastname}`;
+
     return this.repo.update(user);
   }
 }

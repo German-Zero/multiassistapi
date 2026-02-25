@@ -12,12 +12,14 @@ import { GetUsersByRoleUseCase } from "../application/get-user-by-role.use-case"
 import { UpdateUserDto } from "../dto/put-user.dto";
 import { UpdateUserUseCase } from "../application/update-user.use-case";
 import { DeleteUserUseCase } from "../application/delete-user.use-case";
+import { GetUserByIdUseCase } from "../application/get-user-by-id.use-case";
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly getUser: GetUserUseCase,
     private readonly getUserByRole: GetUsersByRoleUseCase,
+    private readonly getUserById: GetUserByIdUseCase,
     private readonly createUser: CreateUserUseCase,
     private readonly createAdmin: CreateAdminUseCase,
     private readonly updateUser: UpdateUserUseCase,
@@ -27,6 +29,11 @@ export class UsersController {
   @Get()
   findAll() {
     return this.getUser.execute();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.getUserById.execute(id);
   }
 
   @Get('/by-role/:role')

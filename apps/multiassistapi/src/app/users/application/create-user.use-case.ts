@@ -49,8 +49,6 @@ export class CreateUserUseCase {
   }
   user.school = {id: dto.schoolId } as School;
 
-  console.log(dto.schoolId)
-
   return this.userRepo.save(user);
   }
 }

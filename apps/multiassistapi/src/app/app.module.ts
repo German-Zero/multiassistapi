@@ -18,7 +18,6 @@ import { SchoolCalendarModule } from './school-calendar/school-calendar.module';
 import { SchoolYearModule } from './school-year/school-year.module';
 import { SchoolModule } from './schools/schools.module';
 import { StudentModule } from './students/students.module';
-import { TeacherAssignmentModule } from './teacher-assignments/teacher-assignments.module';
 import { SubjectModule } from './subjects/subjects.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -45,7 +44,6 @@ import { AuthModule } from './auth/auth.module';
     SchoolYearModule,
     SchoolModule,
     StudentModule,
-    TeacherAssignmentModule,
     SubjectModule,
   ],
   controllers: [AppController],

@@ -13,6 +13,7 @@ import { BcryptPasswordHasher } from "../common/security/bcrypt-password-hasher.
 import { GetUsersByRoleUseCase } from "./application/get-user-by-role.use-case";
 import { UpdateUserUseCase } from "./application/update-user.use-case";
 import { DeleteUserUseCase } from "./application/delete-user.use-case";
+import { GetUserByIdUseCase } from "./application/get-user-by-id.use-case";
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { DeleteUserUseCase } from "./application/delete-user.use-case";
   providers: [
     GetUserUseCase,
     GetUsersByRoleUseCase,
+    GetUserByIdUseCase,
     CreateUserUseCase,
     CreateAdminUseCase,
     UpdateUserUseCase,

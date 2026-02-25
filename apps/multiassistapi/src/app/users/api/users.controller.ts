@@ -12,27 +12,30 @@ import { GetUsersByRoleUseCase } from "../application/get-user-by-role.use-case"
 import { UpdateUserDto } from "../dto/put-user.dto";
 import { UpdateUserUseCase } from "../application/update-user.use-case";
 import { DeleteUserUseCase } from "../application/delete-user.use-case";
+import { GetUserByIdUseCase } from "../application/get-user-by-id.use-case";
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly getUser: GetUserUseCase,
     private readonly getUserByRole: GetUsersByRoleUseCase,
+    private readonly getUserById: GetUserByIdUseCase,
     private readonly createUser: CreateUserUseCase,
     private readonly createAdmin: CreateAdminUseCase,
     private readonly updateUser: UpdateUserUseCase,
     private readonly deleteUser: DeleteUserUseCase,
   ) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(RoleEnum.ADMIN)
   @Get()
   findAll() {
     return this.getUser.execute();
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(RoleEnum.ADMIN)
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.getUserById.execute(id);
+  }
+
   @Get('/by-role/:role')
   findByRole(@Param('role') role: string) {
     return this.getUserByRole.execute(role);

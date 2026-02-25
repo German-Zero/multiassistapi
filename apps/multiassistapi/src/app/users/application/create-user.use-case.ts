@@ -49,8 +49,6 @@ export class CreateUserUseCase {
   }
   user.school = {id: dto.schoolId } as School;
 
-
-
   return this.userRepo.save(user);
   }
 }

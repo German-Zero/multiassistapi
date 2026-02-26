@@ -16,6 +16,6 @@ import { DivisionRepositoryImpl } from "./infrastructure/division.repository.imp
       useClass: DivisionRepositoryImpl,
     }
   ],
-  exports: [],
+  exports: [DivisionRepository],
 })
 export class DivisionModule {}

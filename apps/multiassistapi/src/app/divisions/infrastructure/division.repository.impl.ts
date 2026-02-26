@@ -16,4 +16,8 @@ export class DivisionRepositoryImpl implements DivisionRepository {
   findAll(): Promise<Division[]> {
     return this.repo.find();
   }
+
+  findById(id: number): Promise<Division> {
+    return this.repo.findOneBy({ id });
+  }
 }

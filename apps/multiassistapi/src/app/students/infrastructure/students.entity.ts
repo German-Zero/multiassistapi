@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { BaseEntity } from "../../common/base.entity";
 import { User } from "../../users/infrastructure/user.entity";
 import { Division } from "../../divisions/infrastructure/divisions.entity";
@@ -8,9 +8,6 @@ export class Student extends BaseEntity {
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
-
-  @Column()
-  legajo: string;
 
   @ManyToOne(() => Division)
   division: Division;

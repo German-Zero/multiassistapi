@@ -6,6 +6,8 @@ import { StudentRepository } from "./domain/student.repository";
 import { StudentsController } from "./api/students.controller";
 import { AssignDivisionUseCase } from "./application/assign-division.use-case";
 import { DivisionModule } from "../divisions/divisions.module";
+import { GetStudentUseCase } from "./application/get-student.use-case";
+import { GetStudentsByDivisionUseCase } from "./application/get-student-by-division.use-case";
 
 @Module({
   imports: [
@@ -14,12 +16,15 @@ import { DivisionModule } from "../divisions/divisions.module";
   ],
   controllers: [StudentsController],
   providers: [
+    GetStudentsByDivisionUseCase,
     AssignDivisionUseCase,
+    GetStudentUseCase,
+
     {
       provide: StudentRepository,
       useClass: StudentRepositoryImpl,
     }
   ],
-  exports: [],
+  exports: [StudentRepository],
 })
 export class StudentModule {}

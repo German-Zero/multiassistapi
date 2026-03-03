@@ -13,6 +13,7 @@ import { UpdateUserDto } from "../dto/put-user.dto";
 import { UpdateUserUseCase } from "../application/update-user.use-case";
 import { DeleteUserUseCase } from "../application/delete-user.use-case";
 import { GetUserByIdUseCase } from "../application/get-user-by-id.use-case";
+import { GetUnassignedStudentsUseCase } from "../application/get-unassigned-user.use-case";
 
 @Controller('users')
 export class UsersController {
@@ -20,6 +21,7 @@ export class UsersController {
     private readonly getUser: GetUserUseCase,
     private readonly getUserByRole: GetUsersByRoleUseCase,
     private readonly getUserById: GetUserByIdUseCase,
+    private readonly getUserUnassigned: GetUnassignedStudentsUseCase,
     private readonly createUser: CreateUserUseCase,
     private readonly createAdmin: CreateAdminUseCase,
     private readonly updateUser: UpdateUserUseCase,
@@ -31,14 +33,19 @@ export class UsersController {
     return this.getUser.execute();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.getUserById.execute(id);
-  }
-
   @Get('/by-role/:role')
   findByRole(@Param('role') role: string) {
     return this.getUserByRole.execute(role);
+  }
+
+  @Get('unassigned')
+  getUnassigned() {
+    return this.getUserUnassigned.execute();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.getUserById.execute(id);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

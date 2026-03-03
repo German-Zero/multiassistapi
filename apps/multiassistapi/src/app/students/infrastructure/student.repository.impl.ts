@@ -1,28 +1,54 @@
 import { Injectable } from "@nestjs/common";
-import { InjectDataSource } from "@nestjs/typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
 import { StudentRepository } from "../domain/student.repository";
-import { DataSource, In } from "typeorm";
+import { In, Repository } from "typeorm";
 import { Student } from "./students.entity";
 
 @Injectable()
 export class StudentRepositoryImpl implements StudentRepository {
   constructor(
-    @InjectDataSource()
-    private readonly dataSource: DataSource,
+    @InjectRepository(Student)
+    private readonly repo: Repository<Student>,
   ) {}
 
-  findByUserIds(userIds: number[]): Promise<Student[]> {
-    return this.dataSource.getRepository(Student).find({
+    findByUserIds(userIds: number[]): Promise<Student[]> {
+    return this.repo.find({
       where: {
-        user: {
-          id: In(userIds)
-        },
+        user: { id: In(userIds) },
       },
       relations: ['user', 'division'],
     });
   }
 
-  saveMany(students: Student[]): Promise<Student[]> {
-    return this.dataSource.getRepository(Student).save(students);
+  findByUserId(userId: number): Promise<Student | null> {
+    return this.repo.findOne({
+      where: { user: { id: userId } },
+    });
   }
+
+    saveMany(students: Student[]): Promise<Student[]> {
+    return this.repo.save(students);
+  }
+
+    findAll(): Promise<Student[]> {
+    return this.repo.find({
+      relations: ['user', 'division'],
+    });
+  }
+
+async findByDivision(divisionId: number): Promise<Student[]> {
+  return this.repo.find({
+    where: { division: { id: divisionId } },
+    relations: ['user'],
+  });
+}
+
+findByIdsAndDivision(studentIds: number[], divisionId: number): Promise<Student[]> {
+  return this.repo
+  .createQueryBuilder('student')
+  .innerJoin('student.division', 'division')
+  .where('student.id IN (:...ids)', { ids: studentIds })
+  .andWhere('division.id = :divisionId', { divisionId })
+  .getMany();
+}
 }

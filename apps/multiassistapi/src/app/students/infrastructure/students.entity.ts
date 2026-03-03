@@ -6,9 +6,10 @@ import { Division } from "../../divisions/infrastructure/divisions.entity";
 @Entity('students')
 export class Student extends BaseEntity {
   @OneToOne(() => User)
-  @JoinColumn()
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @ManyToOne(() => Division)
+  @JoinColumn({ name: 'division_id' })
   division: Division;
 }

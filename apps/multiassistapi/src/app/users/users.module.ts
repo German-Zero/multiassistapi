@@ -14,6 +14,7 @@ import { GetUsersByRoleUseCase } from "./application/get-user-by-role.use-case";
 import { UpdateUserUseCase } from "./application/update-user.use-case";
 import { DeleteUserUseCase } from "./application/delete-user.use-case";
 import { GetUserByIdUseCase } from "./application/get-user-by-id.use-case";
+import { GetUnassignedStudentsUseCase } from "./application/get-unassigned-user.use-case";
 
 @Module({
   imports: [
@@ -25,10 +26,12 @@ import { GetUserByIdUseCase } from "./application/get-user-by-id.use-case";
     GetUserUseCase,
     GetUsersByRoleUseCase,
     GetUserByIdUseCase,
+    GetUnassignedStudentsUseCase,
     CreateUserUseCase,
     CreateAdminUseCase,
     UpdateUserUseCase,
     DeleteUserUseCase,
+
     {
       provide: UserRepository,
       useClass: UserRepositoryImpl,

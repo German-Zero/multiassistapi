@@ -26,6 +26,12 @@ export class StudentRepositoryImpl implements StudentRepository {
     });
   }
 
+  findById(id: number): Promise<Student> {
+    return this.repo.findOne({
+      where: { id: id }
+    })
+  }
+
     saveMany(students: Student[]): Promise<Student[]> {
     return this.repo.save(students);
   }

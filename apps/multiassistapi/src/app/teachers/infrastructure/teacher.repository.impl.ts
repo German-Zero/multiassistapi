@@ -13,7 +13,34 @@ export class TeacherRepositoryImpl implements TeacherRepository {
 
   ) {}
 
-  save(teacher: Teacher): Promise<Teacher> {
-    return this.repo.save(teacher);
+  createMany(teachers: Teacher[]): Promise<Teacher[]> {
+    return this.repo.save(teachers)
+  }
+
+  async deleteByUserId(userId: number): Promise<void> {
+    await this.repo.delete({
+      user: { id: userId }
+    })
+  }
+
+  findByUserId(userId: number): Promise<Teacher[]> {
+    return this.repo.find({
+      where: { user: { id: userId } },
+      relations: ['curriculum'],
+    });
+  }
+
+  findCurriculumByUserId(userId: number): Promise<Teacher[]> {
+    return this.repo.find({
+      where: {
+        user: { id: userId },
+      },
+      relations: [
+        'curriculum',
+        'curriculum.subject',
+        'curriculum.division',
+        'curriculum.academicLevel',
+      ]
+    })
   }
 }

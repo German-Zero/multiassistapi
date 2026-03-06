@@ -3,23 +3,27 @@ import { BaseEntity } from "../../common/base.entity";
 import { Student } from "../../students/infrastructure/students.entity";
 import { AttendanceStatus } from "../../common/enums";
 import { User } from "../../users/infrastructure/user.entity";
+import { AttendanceDay } from "./attendance-day.entity";
 
-@Entity('attendance')
-@Unique(['student', 'date'])
+@Entity('attendances')
+@Unique(['student', 'attendanceDay'])
 export class Attendance extends BaseEntity {
 
-  @ManyToOne(() => Student)
+  @ManyToOne(() => Student, { eager: false })
   student: Student;
 
-  @Column({ type: 'date' })
-  date: string;
+  @ManyToOne(() => AttendanceDay, day => day.attendances, { eager: false })
+  attendanceDay: AttendanceDay;
 
-  @Column({ type: 'enum', enum: AttendanceStatus })
+  @Column({
+    type: 'enum',
+    enum: AttendanceStatus,
+  })
   status: AttendanceStatus;
 
-  @Column({ nullable: true })
-  justification?: string;
+  @ManyToOne(() => User, { nullable: true })
+  recorderBy: User;
 
-  @ManyToOne(() => User)
-  recordedBy: User;
+  @Column({ nullable: true })
+  justification: string;
 }

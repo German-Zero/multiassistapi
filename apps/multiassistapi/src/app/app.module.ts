@@ -8,7 +8,6 @@ import { TeacherModule } from './teachers/teachers.module';
 import { AcademicLevelModule } from './academic-level/academic-level.module';
 import { AddressModule } from './addresses/addresses.module';
 import { AttendanceModule } from './attendance/attendance.module';
-import { AttendanceDayModule } from './attendance-day/attendance-day.module';
 import { DiscilpinaryActionModule } from './disciplinary-actions/disciplinary-actions.module';
 import { CurriculumModule } from './curriculum/curriculum.module';
 import { DivisionModule } from './divisions/divisions.module';
@@ -21,6 +20,7 @@ import { StudentModule } from './students/students.module';
 import { SubjectModule } from './subjects/subjects.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -34,7 +34,6 @@ import { AuthModule } from './auth/auth.module';
     AcademicLevelModule,
     AddressModule,
     AttendanceModule,
-    AttendanceDayModule,
     DiscilpinaryActionModule,
     CurriculumModule,
     DivisionModule,
@@ -45,6 +44,7 @@ import { AuthModule } from './auth/auth.module';
     SchoolModule,
     StudentModule,
     SubjectModule,
+    ScheduleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

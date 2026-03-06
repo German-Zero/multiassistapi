@@ -3,6 +3,8 @@ import { UserRepository } from "../domain/user.repository";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "./user.entity";
+import { Student } from "../../students/infrastructure/students.entity";
+import { RoleEnum } from "../../common/enums";
 
 @Injectable()
 export class UserRepositoryImpl implements UserRepository {
@@ -45,6 +47,25 @@ export class UserRepositoryImpl implements UserRepository {
 
         return `(${subQuery}) > 0`;
       })
+      .getMany();
+  }
+
+  async findUnassignedStudent(): Promise<User[]> {
+
+    return this.repo
+      .createQueryBuilder('user')
+      .leftJoin('user.roles', 'role')
+      .leftJoin(Student, 'student', 'student.user_id = user.id')
+      .where('role.name = :roleName', { roleName: RoleEnum.ALUMNO })
+      .andWhere('student.id IS NULL')
+      .select([
+        'user.id',
+        'user.name',
+        'user.lastname',
+        'user.displayName',
+        'user.email',
+        'user.dni',
+      ])
       .getMany();
   }
 

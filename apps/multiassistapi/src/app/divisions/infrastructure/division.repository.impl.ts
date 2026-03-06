@@ -14,6 +14,13 @@ export class DivisionRepositoryImpl implements DivisionRepository {
   ) {}
 
   findAll(): Promise<Division[]> {
-    return this.repo.find();
+    return this.repo
+     .createQueryBuilder('division')
+     .leftJoinAndSelect('division.academicLevel', 'academicLevel')
+     .getMany();
+  }
+
+  findById(id: number): Promise<Division> {
+    return this.repo.findOneBy({ id });
   }
 }

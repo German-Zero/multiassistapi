@@ -1,9 +1,8 @@
-import { Column, Entity, ManyToOne, Unique } from "typeorm";
+import { Column, Entity, Unique } from "typeorm";
 import { BaseEntity } from "../../common/base.entity";
-import { SchoolYear } from "../../school-year/infrastructure/schools-year.entity";
 
 @Entity('school_calendar')
-@Unique(['date', 'schoolYear'])
+@Unique(['date'])
 export class SchoolCalendar extends BaseEntity {
   @Column({ type: 'date', unique: true })
   date: string;
@@ -13,7 +12,4 @@ export class SchoolCalendar extends BaseEntity {
 
   @Column({ nullable: true })
   reason?: string;
-
-  @ManyToOne(() => SchoolYear)
-  schoolYear: SchoolYear;
 }

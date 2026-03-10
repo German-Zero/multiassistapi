@@ -14,7 +14,6 @@ import { DivisionModule } from './divisions/divisions.module';
 import { GradeModule } from './grades/grades.module';
 import { RoleModule } from './roles/roles.module';
 import { SchoolCalendarModule } from './school-calendar/school-calendar.module';
-import { SchoolYearModule } from './school-year/school-year.module';
 import { SchoolModule } from './schools/schools.module';
 import { StudentModule } from './students/students.module';
 import { SubjectModule } from './subjects/subjects.module';
@@ -40,7 +39,6 @@ import { ScheduleModule } from '@nestjs/schedule';
     GradeModule,
     RoleModule,
     SchoolCalendarModule,
-    SchoolYearModule,
     SchoolModule,
     StudentModule,
     SubjectModule,

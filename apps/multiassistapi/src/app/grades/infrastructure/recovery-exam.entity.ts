@@ -2,30 +2,15 @@ import { Column, Entity, ManyToOne } from "typeorm";
 import { BaseEntity } from "../../common/base.entity";
 import { Student } from "../../students/infrastructure/students.entity";
 import { Curriculum } from "../../curriculum/infrastructure/curriculum.entity";
-import { Teacher } from "../../teachers/infrastructure/teachers.entity";
-import { GradeType } from "../../common/enums";
-import { Trimester } from "./trimester.entity";
 
-@Entity('grades')
-export class Grade extends BaseEntity {
+@Entity('recovery_exams')
+export class RecoveryExam extends BaseEntity {
   @ManyToOne(() => Student)
   student: Student;
 
   @ManyToOne(() => Curriculum)
   curriculum: Curriculum;
 
-  @ManyToOne(() => Teacher)
-  teacher: Teacher;
-
-  @ManyToOne(() => Trimester)
-  trimester: Trimester;
-
-  @Column()
-  description: string;
-
   @Column('decimal', { precision: 4, scale: 2 })
   value: number;
-
-  @Column({ type: 'enum', enum: GradeType })
-  type: GradeType;
 }

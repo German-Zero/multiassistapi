@@ -19,7 +19,6 @@ import { GetStudentsByDivisionUseCase } from "./application/get-student-by-divis
     GetStudentsByDivisionUseCase,
     AssignDivisionUseCase,
     GetStudentUseCase,
-
     {
       provide: StudentRepository,
       useClass: StudentRepositoryImpl,

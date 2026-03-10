@@ -2,11 +2,16 @@ export class TeacherCurriculumDto {
   curriculumId: number;
   weeklyHours: number;
 
-  subjectName: string;
-  academicLevelName: string;
+  subject: {
+    name: string;
+  }
 
   division: {
+    id: number
     shift: string;
     letter: string;
+    academicLevel: {
+      name: string;
+    }
   }
 }

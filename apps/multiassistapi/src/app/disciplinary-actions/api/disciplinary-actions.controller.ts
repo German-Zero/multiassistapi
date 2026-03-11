@@ -6,6 +6,7 @@ import { PostDisciplinaryDto } from "../dto/post-disciplinary.dto";
 import { PutDisciplinaryDto } from "../dto/put-disciplinary.dto";
 import { JwtAuthGuard } from "../../auth/infrastructure/jwt.guard";
 import { GetDisciplinaryByIdUseCase } from "../application/get-discplinary-by-id.use-case";
+import { GetMyWarningUseCase } from "../application/get-my-disciplinary.use-case";
 
 @UseGuards(JwtAuthGuard)
 @Controller('disciplinary-action')
@@ -13,6 +14,7 @@ export class DisciplinaryController {
   constructor(
     private readonly getUseCase: GetDisciplinaryByStudentUseCase,
     private readonly getByIdUseCase: GetDisciplinaryByIdUseCase,
+    private readonly getMyWarningsUseCase: GetMyWarningUseCase,
     private readonly postUseCase: CreateDisciplinaryUseCase,
     private readonly putUseCase: PutDisciplinaryUseCase,
   ) {}
@@ -27,7 +29,12 @@ export class DisciplinaryController {
     return this.getUseCase.execute(Number(studentId));
   }
 
-  @Get(':id')
+    @Get('me')
+    getMyWarnings(@Req() req) {
+      return this.getMyWarningsUseCase.execute(req.user.id)
+    }
+
+  @Get('by-id/:id')
   getById(@Param('id') id: number) {
     return this.getByIdUseCase.execute(id)
   }

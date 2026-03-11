@@ -14,11 +14,15 @@ export class FindAllCurriculumUseCase {
     return curriculums.map(c => ({
       id: c.id,
       weeklyHours: c.weeklyHours,
-      subjectName: c.subject.name,
-      academicLevelName: c.academicLevel.name,
+      subject: {
+        name: c.subject.name,
+      },
       division: {
         shift: c.division.shift,
         letter: c.division.letter,
+        academicLevel: {
+          name: c.division.academicLevel.name
+        }
       },
     }));
   }

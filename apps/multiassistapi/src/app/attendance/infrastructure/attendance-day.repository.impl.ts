@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { AttendanceDayRepository } from "../domain/attendance-day.repository";
 import { InjectRepository } from "@nestjs/typeorm";
 import { AttendanceDay } from "./attendance-day.entity";
-import { Repository } from "typeorm";
+import { OrderedBulkOperation, Repository } from "typeorm";
 
 @Injectable()
 export class AttendanceDayRepositoryImpl implements AttendanceDayRepository {
@@ -20,22 +20,24 @@ export class AttendanceDayRepositoryImpl implements AttendanceDayRepository {
   }
 
   findByDateAndDivision(date: string, divisionId: number) {
-  return this.repo.findOne({
-    where: {
-      date,
-      division: { id: Number(divisionId) },
-    },
-    relations: ['division'],
-  });
-}
+    return this.repo.findOne({
+      where: {
+        date,
+        division: { id: Number(divisionId) },
+      },
+      relations: ['division'],
+    });
+  }
 
-findOpenByDate(date: string): Promise<AttendanceDay[]> {
-  return this.repo.find({
-    where: {
-      date,
-      isOpen: true,
-    },
-    relations: ['division'],
-  });
-}
+  findOpenByDate(date: string): Promise<AttendanceDay[]> {
+    return this.repo.find({
+      where: {
+        date,
+        isOpen: true,
+      },
+      relations: ['division'],
+    });
+  }
+
+
 }

@@ -4,4 +4,5 @@ export interface AuthPayLoad {
   sub: number;
   email: string;
   roles: RoleEnum[];
+  changePassword: boolean
 }

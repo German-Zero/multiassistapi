@@ -39,7 +39,7 @@ export class TeacherRepositoryImpl implements TeacherRepository {
         'curriculum',
         'curriculum.subject',
         'curriculum.division',
-        'curriculum.academicLevel',
+        'curriculum.division.academicLevel',
       ]
     })
   }

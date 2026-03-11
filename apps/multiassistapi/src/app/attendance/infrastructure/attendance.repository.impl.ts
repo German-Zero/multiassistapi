@@ -57,6 +57,21 @@ export class AttendanceRepositoryImpl implements AttendanceRepository {
     },
   });
 }
+  findAttendanceByUser(userId: number): Promise<any[]> {
+    return this.repoAttendace
+      .createQueryBuilder('attendance')
+      .innerJoin('attendance.student', 'student')
+      .innerJoin('attendance.attendanceDay', 'day')
+      .select([
+        'attendance.id AS "id"',
+        'day.date AS "date"',
+        'attendance.status AS "status"',
+        'attendance.justification AS "justification"'
+      ])
+      .where('student.user_id = :userId', { userId })
+      .orderBy('day.date', 'DESC')
+      .getRawMany();
+  }
 
   save(attendance: Attendance): Promise<Attendance> {
     return this.repoAttendace.save(attendance);

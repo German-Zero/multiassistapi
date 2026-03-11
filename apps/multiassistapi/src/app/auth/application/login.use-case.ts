@@ -20,6 +20,9 @@ export class LoginUseCase {
       user.password,
     );
 
+    console.log(password, user.password)
+    console.log(user)
+    console.log(isValid)
     if (!user) {
       throw new UnauthorizedException();
     }
@@ -28,17 +31,11 @@ export class LoginUseCase {
       throw new UnauthorizedException();
     }
 
-    if (!user.passwordChanged) {
-      return {
-        mustChangePassword: true,
-        userId: user.id,
-      };
-    }
-
     const payload: AuthPayLoad = {
       sub: user.id,
       email: user.email,
       roles: user.roles.map(r => r.name),
+      changePassword: user.passwordChanged,
     };
 
     return {

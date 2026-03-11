@@ -14,17 +14,31 @@ export class CurriculumRepositoryImpl implements CurriculumRepository {
   findByIds(ids: number[]): Promise<Curriculum[]> {
     return this.repo.find({
       where: { id: In(ids) },
-      relations: ['subject', 'division', 'academicLevel'],
+      relations: ['subject', 'division', 'division.academicLevel'],
     });
+  }
+
+  findById(id: number): Promise<Curriculum> {
+    return this.repo.findOne({
+      where: { id },
+      relations: ['subject', 'division', 'division.academicLevel'],
+    })
   }
 
   findAll(): Promise<Curriculum[]> {
     return this.repo.find({
-      relations: ['subject', 'division', 'academicLevel'],
+      relations: ['subject', 'division', 'division.academicLevel'],
       order: {
-        academicLevel: { id: 'ASC' },
         division: { id: 'ASC' }
       },
     });
+  }
+
+  save(curriculum: Curriculum): Promise<Curriculum> {
+    return this.repo.save(curriculum);
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.repo.delete(id)
   }
 }

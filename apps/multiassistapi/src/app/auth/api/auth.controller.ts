@@ -21,10 +21,6 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const result = await this.login.execute(body.email, body.password)
-
-    if ('mustChangePassword' in result) {
-      return result;
-    }
     if (!result.access_token) {
       throw new InternalServerErrorException('Token not generated')
     }
@@ -69,6 +65,7 @@ export class AuthController {
       id: user.sub,
       email: user.email,
       role: user.roles,
+      changePassword: user.changePassword
     }
   }
 }

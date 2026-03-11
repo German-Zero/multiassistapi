@@ -2,11 +2,15 @@ export class CurriculumResponseDto {
   id: number;
   weeklyHours: number;
 
-  subjectName: string;
-  academicLevelName: string;
+  subject: {
+    name: string;
+  };
 
   division: {
     shift: string;
     letter: string;
+    academicLevel: {
+      name: string;
+    }
   }
 }

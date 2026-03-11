@@ -19,11 +19,16 @@ export class GetAcademyByTeacherUseCase {
     return teacherAssignments.map(t => ({
       curriculumId: t.curriculum.id,
       weeklyHours: t.curriculum.weeklyHours,
-      subjectName: t.curriculum.subject.name,
-      academicLevelName: t.curriculum.academicLevel.name,
+      subject: {
+        name: t.curriculum.subject.name,
+      },
       division: {
+        id: t.curriculum.division.id,
         shift: t.curriculum.division.shift,
         letter: t.curriculum.division.letter,
+        academicLevel: {
+          name: t.curriculum.division.academicLevel.name
+        }
       }
     }))
   }

@@ -20,7 +20,6 @@ export class AttendanceCron {
     timeZone: 'America/Argentina/Buenos_Aires'
   })
   async handleCloseAttendance() {
-    console.log('Cron Ejecutado')
     const today = new Date().toISOString().split('T')[0];
 
     await this.closeAttendanceUseCase.execute(today);

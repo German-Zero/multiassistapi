@@ -5,4 +5,5 @@ export abstract class GradesRepository {
   abstract getGradeByCurriculum(curriculumId: number): Promise<any[]>;
   abstract saveBulkGrades(grades: Grade[]): Promise<void>
   abstract putBulkGrades(dto: PutBulkGradesDto): Promise<void>;
+  abstract findGradesByUser(UserId: number): Promise<any[]>
 }

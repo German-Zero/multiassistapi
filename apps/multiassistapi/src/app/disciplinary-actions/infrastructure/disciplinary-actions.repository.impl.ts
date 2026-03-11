@@ -28,6 +28,21 @@ export class DisciplinaryRepositoryImpl implements DisciplinaryRepository {
     return this.repo.findOne( { where: { id } } );
   }
 
+  findWarningByUser(userId: number): Promise<any[]> {
+    return this.repo
+      .createQueryBuilder('disciplinary_actions')
+      .innerJoin('disciplinary_actions.student', 'students')
+      .select([
+        'disciplinary_actions.id AS "id"',
+        'disciplinary_actions.reason AS "reason"',
+        'disciplinary_actions.date AS "date"',
+        'disciplinary_actions.severity AS "severity"'
+      ])
+      .where('students.user_id = :userId', { userId })
+      .orderBy('disciplinary_actions.date', 'DESC')
+      .getRawMany()
+  }
+
   save(disciplinary: DiscilpinaryAction): Promise<DiscilpinaryAction> {
     return this.repo.save(disciplinary)
   }

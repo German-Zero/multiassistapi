@@ -9,6 +9,7 @@ import { CreateDisciplinaryUseCase } from "./application/post-disciplinary.use-c
 import { DisciplinaryRepository } from "./domain/disciplinary-actions.repository";
 import { DisciplinaryRepositoryImpl } from "./infrastructure/disciplinary-actions.repository.impl";
 import { GetDisciplinaryByIdUseCase } from "./application/get-discplinary-by-id.use-case";
+import { GetMyWarningUseCase } from "./application/get-my-disciplinary.use-case";
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { GetDisciplinaryByIdUseCase } from "./application/get-discplinary-by-id.
     CreateDisciplinaryUseCase,
     PutDisciplinaryUseCase,
     GetDisciplinaryByIdUseCase,
+    GetMyWarningUseCase,
     {
       provide: DisciplinaryRepository,
       useClass: DisciplinaryRepositoryImpl,

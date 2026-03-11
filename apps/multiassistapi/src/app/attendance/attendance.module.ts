@@ -15,6 +15,7 @@ import { AttendanceDayRepository } from "./domain/attendance-day.repository";
 import { AttendanceDayRepositoryImpl } from "./infrastructure/attendance-day.repository.impl";
 import { StudentModule } from "../students/students.module";
 import { GetAbsentsUseCase } from "./application/get-attendance-absent.use-case";
+import { GetMyAttendanceUseCase } from "./application/get-my-attendance.use-case";
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { GetAbsentsUseCase } from "./application/get-attendance-absent.use-case"
     CloseAttendanceUseCase,
     JustifyAttendanceUseCase,
     GetAbsentsUseCase,
+    GetMyAttendanceUseCase,
     AttendanceCron,
     {
       provide: AttendanceRepository,

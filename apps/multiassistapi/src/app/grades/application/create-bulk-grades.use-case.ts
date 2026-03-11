@@ -21,7 +21,6 @@ export class CreateBulkGradesUseCase {
       grade.description = dto.description;
       grade.type = dto.type;
       grade.value = item.value;
-      console.log(grade)
       return grade;
     });
     await this.gradeRepository.saveBulkGrades(grades);

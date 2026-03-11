@@ -1,12 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { CreateUserUseCase } from "../application/create-user.use-case";
 import { CreateUserDto } from "../dto/create-user.dto";
 import { CreateAdminDto } from "../dto/create-admin.dto";
 import { CreateAdminUseCase } from "../application/create-admin.use-case";
-import { JwtAuthGuard } from "../../auth/infrastructure/jwt.guard";
-import { RolesGuard } from "../../auth/infrastructure/roles.guard";
-import { Roles } from "../../auth/infrastructure/roles.decorator";
-import { RoleEnum } from "../../common/enums";
 import { GetUserUseCase } from "../application/get-user.use-case";
 import { GetUsersByRoleUseCase } from "../application/get-user-by-role.use-case";
 import { UpdateUserDto } from "../dto/put-user.dto";
@@ -48,8 +44,6 @@ export class UsersController {
     return this.getUserById.execute(id);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(RoleEnum.ADMIN)
   @Post('/admin')
   createAdm(@Body() dto: CreateAdminDto) {
     return this.createAdmin.execute(dto);

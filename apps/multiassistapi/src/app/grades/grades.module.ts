@@ -10,6 +10,7 @@ import { GradesRepositoryImpl } from "./infrastructure/grades.repository.impl";
 import { StudentModule } from "../students/students.module";
 import { CreateBulkGradesUseCase } from "./application/create-bulk-grades.use-case";
 import { PutBulkGradesUseCase } from "./application/put-bulk-grades.use-case";
+import { GetMyGradesUseCase } from "./application/get-my-grades.use.case";
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PutBulkGradesUseCase } from "./application/put-bulk-grades.use-case";
     GetStudentsGradesByCurriculumUseCase,
     CreateBulkGradesUseCase,
     PutBulkGradesUseCase,
+    GetMyGradesUseCase,
     {
       provide: GradesRepository,
       useClass: GradesRepositoryImpl

@@ -75,6 +75,28 @@ export class GradesRepositoryImpl implements GradesRepository {
       await queryRunner.release()
     }
   }
+
+  async findGradesByUser(userId: number): Promise<any[]> {
+    return this.repo
+      .createQueryBuilder('grade')
+      .innerJoin('grade.student', 'student')
+      .innerJoin('student.user', 'user')
+      .innerJoin('grade.curriculum', 'curriculum')
+      .innerJoin('curriculum.subject', 'subject')
+      .leftJoin('grade.trimester', 'trimester')
+      .select([
+        'curriculum.id AS "curriculumId"',
+        'student.id AS "studentId"',
+        'user.id AS "userId"',
+        'subject.name AS "subjectName"',
+        'grade.id AS "gradeId"',
+        'grade.value AS "gradeValue"',
+        'trimester.number AS "trimester"'
+      ])
+      .where('user.id = :userId', { userId })
+      .orderBy('curriculum.id', 'ASC')
+      .getRawMany();
+  }
 }
 
 

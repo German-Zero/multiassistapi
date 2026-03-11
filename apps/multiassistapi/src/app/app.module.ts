@@ -19,6 +19,7 @@ import { SubjectModule } from './subjects/subjects.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
@@ -42,7 +43,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     SubjectModule,
     ScheduleModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, HealthController],
   providers: [AppService],
 })
 export class AppModule {}

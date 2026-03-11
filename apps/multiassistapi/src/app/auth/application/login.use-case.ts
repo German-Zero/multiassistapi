@@ -19,10 +19,6 @@ export class LoginUseCase {
       password,
       user.password,
     );
-
-    console.log(password, user.password)
-    console.log(user)
-    console.log(isValid)
     if (!user) {
       throw new UnauthorizedException();
     }

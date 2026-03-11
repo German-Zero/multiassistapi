@@ -12,8 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const allowedOrigins = [
     'http://localhost:3001',
-    'https://multiassistweb.vercel.app',
-    process.env.FRONTEND_URL
+    'https://multiassistweb.vercel.app'
   ];
 
   app.enableCors({

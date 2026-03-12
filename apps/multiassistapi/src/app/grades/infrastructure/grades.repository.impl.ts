@@ -5,44 +5,16 @@ import { Repository } from "typeorm";
 import { Grade } from "./grades.entity";
 import { PutBulkGradesDto } from "../dto/put-bulk-grades.dto";
 
+
 @Injectable()
 export class GradesRepositoryImpl implements GradesRepository {
   constructor(
-
     @InjectRepository(Grade)
-    private readonly repo: Repository<Grade>,
+    private readonly gradeRepo: Repository<Grade>,
   ) {}
 
-  async getGradeByCurriculum(curriculumId: number) {
-
-    return this.repo
-    .createQueryBuilder()
-    .select([
-      'students.id AS studentId',
-      'user.name AS firstName',
-      'user.lastname AS lastName',
-      'grade.id AS gradeId',
-      'grade.value AS gradeValue',
-      'trimester.number AS trimester'
-    ])
-    .from('students', 'students')
-    .innerJoin('users', 'user', 'user.id = students.user_id')
-    .innerJoin('divisions', 'division', 'division.id = students.division_id')
-    .innerJoin('curriculum', 'curriculum',
-      'curriculum.divisionId = division.id AND curriculum.id = :curriculumId',
-      { curriculumId }
-    )
-    .leftJoin('grades', 'grade',
-      'grade.studentId = students.id AND grade.curriculumId = :curriculumId',
-      { curriculumId }
-    )
-    .leftJoin('trimesters', 'trimester', 'trimester.id = grade.trimesterId')
-    .orderBy('students.id', 'ASC')
-    .getRawMany();
-  }
-
   async saveBulkGrades(grades: Grade[]): Promise<void> {
-    await this.repo
+    await this.gradeRepo
       .createQueryBuilder()
       .insert()
       .into(Grade)
@@ -51,7 +23,7 @@ export class GradesRepositoryImpl implements GradesRepository {
   }
 
   async putBulkGrades(dto: PutBulkGradesDto): Promise<void> {
-    const queryRunner = this.repo.manager.connection.createQueryRunner();
+    const queryRunner = this.gradeRepo.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
     try {
       for (const g of dto.grades) {
@@ -77,7 +49,7 @@ export class GradesRepositoryImpl implements GradesRepository {
   }
 
   async findGradesByUser(userId: number): Promise<any[]> {
-    return this.repo
+    return this.gradeRepo
       .createQueryBuilder('grade')
       .innerJoin('grade.student', 'student')
       .innerJoin('student.user', 'user')
@@ -98,6 +70,3 @@ export class GradesRepositoryImpl implements GradesRepository {
       .getRawMany();
   }
 }
-
-
-

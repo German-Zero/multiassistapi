@@ -8,6 +8,7 @@ import { AssignDivisionUseCase } from "./application/assign-division.use-case";
 import { DivisionModule } from "../divisions/divisions.module";
 import { GetStudentUseCase } from "./application/get-student.use-case";
 import { GetStudentsByDivisionUseCase } from "./application/get-student-by-division.use-case";
+import { GetStudentsGradesByCurriculumUseCase } from "./application/get-students-grades-by-curriculum.usecase";
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { GetStudentsByDivisionUseCase } from "./application/get-student-by-divis
     GetStudentsByDivisionUseCase,
     AssignDivisionUseCase,
     GetStudentUseCase,
+    GetStudentsGradesByCurriculumUseCase,
     {
       provide: StudentRepository,
       useClass: StudentRepositoryImpl,

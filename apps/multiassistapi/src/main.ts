@@ -11,7 +11,7 @@ import cookieParser from 'cookie-parser'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const allowedOrigins = [
-    'http://localhost:3001',
+    'http://localhost:3000',
     'https://multiassistweb.vercel.app'
   ];
 

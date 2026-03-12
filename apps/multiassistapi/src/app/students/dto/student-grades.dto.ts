@@ -1,4 +1,4 @@
-import { TrimesterGradesDto } from "./trimester-grades.dto";
+import { TrimesterGradesDto } from "../../grades/dto/trimester-grades.dto";
 
 export class StudentGradesDto {
   studentId: number;

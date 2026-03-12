@@ -42,19 +42,40 @@ export class StudentRepositoryImpl implements StudentRepository {
     });
   }
 
-async findByDivision(divisionId: number): Promise<Student[]> {
-  return this.repo.find({
-    where: { division: { id: divisionId } },
-    relations: ['user'],
-  });
-}
+  async findByDivision(divisionId: number): Promise<Student[]> {
+    return this.repo.find({
+      where: { division: { id: divisionId } },
+      relations: ['user'],
+    });
+  }
 
-findByIdsAndDivision(studentIds: number[], divisionId: number): Promise<Student[]> {
-  return this.repo
-  .createQueryBuilder('student')
-  .innerJoin('student.division', 'division')
-  .where('student.id IN (:...ids)', { ids: studentIds })
-  .andWhere('division.id = :divisionId', { divisionId })
-  .getMany();
-}
+  findByIdsAndDivision(studentIds: number[], divisionId: number): Promise<Student[]> {
+    return this.repo
+    .createQueryBuilder('student')
+    .innerJoin('student.division', 'division')
+    .where('student.id IN (:...ids)', { ids: studentIds })
+    .andWhere('division.id = :divisionId', { divisionId })
+    .getMany();
+  }
+
+  async getStudentByCurriculum(curriculumId: number) {
+    return this.repo
+    .createQueryBuilder('student')
+    .innerJoin('student.user', 'user')
+    .innerJoin('student.division', 'division')
+    .innerJoin('curriculum', 'curriculum', 'curriculum.division = division.id')
+    .leftJoin('grades', 'grades', 'grades.student = student.id AND grades.curriculum = curriculum.id')
+    .leftJoin('grades.trimester', 'trimester')
+    .select([
+      'student.id AS "studentid"',
+      'user.name AS "firstname"',
+      'user.lastname AS "lastname"',
+      'grades.id AS "gradeid"',
+      'grades.value AS "gradevalue"',
+      'trimester.number AS "trimester"'
+    ])
+    .where('curriculum.id = :curriculumId', { curriculumId })
+    .orderBy('student.id', 'ASC')
+    .getRawMany()
+  }
 }

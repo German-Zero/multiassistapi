@@ -8,4 +8,5 @@ export abstract class StudentRepository {
   abstract findById(id: number): Promise<Student>
   abstract findByDivision(divisionId: number): Promise<Student[]>
   abstract findByIdsAndDivision(studentIds: number[], divisionId: number): Promise<Student[]>;
+  abstract getStudentByCurriculum(curriculumId: number): Promise<any[]>;
 }

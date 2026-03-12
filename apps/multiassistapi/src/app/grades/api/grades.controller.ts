@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
-import { GetStudentsGradesByCurriculumUseCase } from "../application/get-students-grades-by-curriculum.usecase";
+import { Body, Controller, Get, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { CreateBulkGradesDto } from "../dto/create-bulk-grades.dto";
 import { CreateBulkGradesUseCase } from "../application/create-bulk-grades.use-case";
 import { PutBulkGradesDto } from "../dto/put-bulk-grades.dto";
@@ -11,16 +10,10 @@ import { GetMyGradesUseCase } from "../application/get-my-grades.use.case";
 export class GradesController {
 
   constructor(
-    private readonly getStudentsGradesUseCase: GetStudentsGradesByCurriculumUseCase,
     private readonly createBulkGradesUseCase: CreateBulkGradesUseCase,
     private readonly putBulkGradesUseCase: PutBulkGradesUseCase,
     private readonly getMyGrades: GetMyGradesUseCase,
   ) {}
-
-  @Get("curriculum/:curriculumId")
-  getStudentsGrades(@Param("curriculumId") curriculumId: number) {
-    return this.getStudentsGradesUseCase.execute(Number(curriculumId));
-  }
 
   @Post('bulk')
   async createBulkGrades(@Body() dto: CreateBulkGradesDto) {

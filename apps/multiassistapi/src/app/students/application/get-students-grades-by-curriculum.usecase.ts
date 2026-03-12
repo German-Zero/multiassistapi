@@ -1,17 +1,17 @@
 import { Injectable } from "@nestjs/common";
-import { GradesRepository } from "../domain/grades.repository";
+import { StudentRepository } from "../domain/student.repository";
 import { StudentGradesDto } from "../dto/student-grades.dto";
 
 @Injectable()
 export class GetStudentsGradesByCurriculumUseCase {
 
   constructor(
-    private readonly repo: GradesRepository
+    private readonly repo: StudentRepository
   ) {}
 
     async execute(curriculumId: number): Promise<StudentGradesDto[]> {
     const rows =
-      await this.repo.getGradeByCurriculum(curriculumId);
+      await this.repo.getStudentByCurriculum(curriculumId);
     const studentsMap = new Map<number, StudentGradesDto>();
     const addedGrades = new Set<number>();
     for (const row of rows) {

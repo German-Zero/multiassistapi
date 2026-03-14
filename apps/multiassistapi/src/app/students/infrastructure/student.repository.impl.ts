@@ -4,6 +4,7 @@ import { StudentRepository } from "../domain/student.repository";
 import { In, Repository } from "typeorm";
 import { Student } from "./students.entity";
 
+
 @Injectable()
 export class StudentRepositoryImpl implements StudentRepository {
   constructor(
@@ -72,6 +73,7 @@ export class StudentRepositoryImpl implements StudentRepository {
       'user.lastname AS "lastname"',
       'grades.id AS "gradeid"',
       'grades.value AS "gradevalue"',
+      'grades.description AS "gradedescription"',
       'trimester.number AS "trimester"'
     ])
     .where('curriculum.id = :curriculumId', { curriculumId })
@@ -79,3 +81,5 @@ export class StudentRepositoryImpl implements StudentRepository {
     .getRawMany()
   }
 }
+
+

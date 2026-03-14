@@ -33,7 +33,8 @@ export class GetStudentsGradesByCurriculumUseCase {
         addedGrades.add(row.gradeid)
         student.trimesters[row.trimester].grades.push({
           id: row.gradeid,
-          value: Number(row.gradevalue)
+          value: Number(row.gradevalue),
+          description: String(row.gradedescription)
         });
       }
     }

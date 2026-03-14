@@ -26,7 +26,6 @@ export class StudentsController {
 
   @Get("curriculum/:curriculumId")
   getStudentsGrades(@Param("curriculumId") curriculumId: number) {
-    console.log(curriculumId)
     return this.getStudentsGradesUseCase.execute(Number(curriculumId));
   }
 }

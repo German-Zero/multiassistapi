@@ -20,6 +20,26 @@ export class DivisionRepositoryImpl implements DivisionRepository {
      .getMany();
   }
 
+  async findDivisionsWithStudents(): Promise<Division[]> {
+  return this.repo
+    .createQueryBuilder('division')
+    .innerJoin('division.students', 'student')
+    .leftJoinAndSelect('division.academicLevel', 'academicLevel')
+    .select([
+      'division.id AS "id"',
+      'division.letter AS "letter"',
+      'division.shift AS "shift"',
+      'academicLevel.name AS "academicLevelName"',
+      'COUNT(student.id) AS "studentCount"'
+    ])
+    .groupBy('division.id')
+    .addGroupBy('division.letter')
+    .addGroupBy('division.shift')
+    .addGroupBy('academicLevel.name')
+    .orderBy('division.id', 'ASC')
+    .getRawMany()
+}
+
   findById(id: number): Promise<Division> {
     return this.repo.findOneBy({ id });
   }

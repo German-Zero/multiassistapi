@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "../../common/base.entity";
 import { Shift } from "../../common/enums";
 import { AcademicLevel } from "../../academic-level/infrastructure/academic-level.entity";
+import { Student } from "../../students/infrastructure/students.entity";
 
 @Entity('divisions')
 export class Division extends BaseEntity {
@@ -14,4 +15,7 @@ export class Division extends BaseEntity {
 
   @ManyToOne(() => AcademicLevel)
   academicLevel: AcademicLevel;
+
+  @OneToMany(() => Student, student => student.division)
+  students: Student[]
 }

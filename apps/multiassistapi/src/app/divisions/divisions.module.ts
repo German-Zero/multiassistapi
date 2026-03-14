@@ -5,12 +5,14 @@ import { DivisionsController } from "./api/divisions.controller";
 import { GetDivisionUseCase } from "./application/get-division.use-case";
 import { DivisionRepository } from "./domain/division.repository";
 import { DivisionRepositoryImpl } from "./infrastructure/division.repository.impl";
+import { GetDivisionsWithStudentsUseCase } from "./application/get-division-with-student.use-case";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Division])],
   controllers: [DivisionsController],
   providers: [
     GetDivisionUseCase,
+    GetDivisionsWithStudentsUseCase,
     {
       provide: DivisionRepository,
       useClass: DivisionRepositoryImpl,

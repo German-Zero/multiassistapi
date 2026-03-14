@@ -22,9 +22,8 @@ export class CreateAdminUseCase {
     const user = new User();
     user.email = dto.email;
     user.name = dto.name;
-    user.middleName = dto.middlename;
     user.lastname = dto.lastname;
-    user.displayName = `${dto.name} ${dto.middlename} ${dto.lastname}`;
+    user.displayName = `${dto.name} ${dto.lastname}`;
     user.password = hashedPassword;
     user.dni = dto.dni;
     user.roles = [adminRole];
